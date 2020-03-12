@@ -1,0 +1,260 @@
+{{ define "Pembayaran_spp" }}
+  {{ template "Header" . }}
+<div class="row">
+	<div class="col-md-6">
+		<h3><i class="ti-medall text-primary"></i> Pembayaran SPP</h3>
+		<hr>
+	</div>
+	<div class="col-md-6">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Pembayaran SPP</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div id="strukMessage"></div>
+		<div id="cardStruk" style="display: none" class="card">
+			<div class="card-header">
+				<div class="row">
+					<div class="col-md-12">
+						<h5 class="mt-2 float-left"><i class="ti-receipt"></i> STRUK PEMBAYARAN</h5> 
+						<button class="btn btn-primary float-right" id="print"><i class="ti-printer"></i> Cetak Struk</button>
+					</div>
+				</div>
+			</div>
+			<div id="bodyStruk" class="card-body">
+				<div class="row mb-4">
+					<div class="col-md-1">
+						<img style="width: 100px" src="/static/images/stmik-black.png">
+					</div>
+					<div class="ml-4 col-sm-6">
+						<b>STMIK Sumedang</b><br>
+						Jl.Angkrek Situ No.19 Sumedang<br>
+						Phone: (0261)207395<br>
+						Fax: (0261)207395<br>
+						Email: info@stmik-sumedang.ac.id
+					</div>
+					<div class="col-md-12">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h6 class="mb-3">KEPADA :</h6>
+						<div>
+							<strong id="nama">Khalid Insan Tauhid</strong>
+						</div>
+						<div id="jurusan">Teknik Informatika</div>
+						<div id="nim">A2.1800074</div>
+					</div>
+					<div class="col-md-6" style="text-align: right">
+						<h6 class="mb-2">WAKTU :</h6>
+						<span id="waktu">
+							10 Januari 2019, 17.32
+						</span>
+						<h6 class="mt-3 mb-2">PEMBAYARAN UNTUK :</h6>
+						<span id="pembayaran">
+							Pembayaran SPP
+						</span>
+					</div>
+				</div>
+				<hr>
+				<div class="table-responsive-sm">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th class="center">#</th>
+								<th>Item</th>
+								<th class="right">Deskripsi</th>
+								<th class="center">Harga</th>
+								<th class="right">Total</th>
+							</tr>
+						</thead>
+						<tbody id="tableStruk">
+							<tr>
+								<td class="center">1</td>
+								<td class="left strong">Pembayaran SPP</td>
+								<td class="left">Bulan Januari</td>
+
+								<td class="right">Rp. 90000</td>
+								<td class="right">Rp. 90000</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-sm-5">
+
+					</div>
+
+					<div class="col-lg-4 col-sm-5 ml-auto">
+						<table class="table table-clear">
+							<tbody>
+								<tr>
+									<td class="left">
+										<strong>Total Bayar</strong>
+									</td>
+									<td class="right">
+										<span id="total_bayar">Rp. 90.000,-</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="col m8 offset-m2">
+		<div id="cardForm" class="card">
+			<div class="card-body">
+				<form id="form">
+					<div id="message"></div>
+					<div class="form-group">
+						<label for="exampleInputPassword1" class="text-primary">NIM</label>
+						<input type="text" name="nim" class="form-control" placeholder="Masukkan NIM">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1" class="text-primary">Nama Mahasiswa</label>
+						<input type="text" name="nama" class="form-control" placeholder="Masukkan Nama Mahasiswa">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1" class="text-primary">Bulan Pembayaran</label>
+						<select name="bulan" id="bulan" class="form-control" onchange="setHarga()">
+							<option value="">Pilih Bulan</option>
+							{{range $key,$value := .bulan}}
+							<option value="{{$key}}">{{$value}}</option>
+							{{end}}
+						</select>
+					</div>
+						<hr>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Total yang harus dibayar</label><br>
+							<span class="badge badge-primary"><h5 id="jumlah_bayar">Rp. 0</h5></span>
+						</div>
+					</form>
+				</div>
+				<div class="card-footer">
+
+					<button onclick="formSubmit()" class="btn btn-primary" id="btnSubmit" type="submit"><i class="ti-arrow-circle-left"></i> Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		function rupiah(bilangan){
+			var	reverse = bilangan.toString().split('').reverse().join(''),
+			ribuan 	= reverse.match(/\d{1,3}/g);
+			ribuan	= ribuan.join('.').split('').reverse().join('');
+			return "Rp. "+ribuan+',-'
+		}
+
+		function setHarga(){
+			var bulan = $('#bulan').val();
+			if(bulan == ''){
+				$("#jumlah_bayar").html(rupiah(0))
+			}else{
+				$("#jumlah_bayar").html(rupiah({{ .harga_spp }}))
+			}
+		}
+
+		function formSubmit(){
+
+			$('#btnSubmit').html('<i class="ti-reload"></i> Memproses');
+			$('#cardForm').block({ message: "Silahkan tunggu ..." }); 
+
+			var isValid = true;
+			$('input,select').each(function() {
+				if ($.trim($(this).val()) == '') {
+					isValid = false;
+					$(this).css({
+						"border": "1px solid #dc3545"
+					});
+				}
+				else {
+					$(this).css({
+						"border": ""
+					});
+				}
+			})
+
+			if(isValid == false){
+				$('#message').html('<div class="alert alert-warning alert-dismissible fade show" role="alert""><i class="ti-alert"></i> Masih ada form yang kosong <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+				$("html, body").animate({ scrollTop: 0 }, 500); 
+				$('#btnSubmit').html('<i class="ti-arrow-circle-left"></i> Submit');
+
+				$('#cardForm').unblock(); 
+				return;
+			}
+
+			$('#tableStruk').html('');
+			$.ajax({
+				url : "/post_spp",
+				type: "POST",
+				data: $('#form').serialize(),
+				dataType: "JSON",
+				success: function(data)
+				{
+
+			            if(data.Status) 
+			            {
+			            	$('#cardForm').hide();
+			            	$('#cardStruk').show();
+			            	$('#nama').html(data.Nama)
+			            	$('#nim').html(data.Nim)
+			            	$('#total_bayar').html(rupiah(data.Total_bayar))
+			            	$('#waktu').html((data.Sekarang))
+			            	$('#pembayaran').html("SPP Bulan "+data.Bulan)
+
+			            	$('#tableStruk').html('<tr><td>1</td><td>Pembayaran SPP</td><td>Bulan '+data.Bulan+'</td><td>'+rupiah({{ .harga_spp }})+'</td><td>'+rupiah(data.Total_bayar)+'</td><td></td></tr>')
+
+			            	$('#strukMessage').html('<div class="alert alert-success alert-dismissible fade show" role="alert""><i class="ti-check"></i> Pembayaran berhasil <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+			            	$("html, body").animate({ scrollTop: 0 }, 500); 
+			            }
+
+			            $('#btnSubmit').html('<i class="ti-arrow-circle-left"></i> Submit');
+
+			            $('#cardForm').unblock(); 
+
+
+			        },
+			        error: function (jqXHR, textStatus, errorThrown)
+			        {
+			        	alert('Error adding / update data');
+			        	$('#btnSubmit').html('<i class="ti-arrow-circle-left"></i> Submit');
+
+			        	$('#cardForm').unblock(); 
+
+			        }
+			    });
+			}
+		</script>
+		{{ template "Footer" }}
+		<script type="text/javascript">
+			function printData()
+			{
+				var divToPrint=document.getElementById("bodyStruk");
+				newWin= window.open("");
+				newWin.document.write('<link rel="stylesheet" href="/static/css/bootstrap.css">');
+				newWin.document.write(divToPrint.outerHTML);
+				setTimeout(
+					function() 
+					{
+						newWin.print();
+						newWin.close();
+					}, 1);
+			}
+
+			$('#print').on('click',function(){
+				printData();
+			})
+		</script>
+		{{ end }}

@@ -1,0 +1,89 @@
+{{ define "Tentang" }}
+{{ template "Header" . }}
+<div class="row">
+  <div class="col-md-6">
+    <h3><i class="ti-info-alt text-primary"></i> Tentang Aplikasi</h3>
+    <hr>
+  </div>
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tentang Aplikasi</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="text-primary">Tentang</h4>
+        Aplikasi ini dibuat untuk memenuhi tugas UAS (Ujian Akhir Semester) untuk mata kuliah Dasar Pemrograman<br><br>
+        <h4 class="text-primary">Dibuat Oleh</h4>
+        <table border="0">
+          <tr>
+            <td style="width: 70px"><b>NIM</b></td>
+            <td>:</td>
+            <td>A2.1800074</td>
+          </tr>
+          <tr>
+            <td><b>Nama</b></td>
+            <td>:</td>
+            <td>Khalid Insan Tauhid</td>
+          </tr>
+          <tr>
+            <td><b>Kelas</b></td>
+            <td>:</td>
+            <td>TI-1A</td>
+          </tr>
+          <tr>
+            <td><b>Jurusan</b></td>
+            <td>:</td>
+            <td>Teknik Informatika</td>
+          </tr>
+        </table>
+        <br>
+        <h4 class="text-primary">BAHASA YANG DIGUNAKAN</h4>
+        <div class="media">
+          <img style="width: 30px" class="mr-3" src="/static/images/html.png">
+          <div class="media-body">Hypertext Markup Language <b>(HTML)</b>
+          </div>
+        </div>
+        <div class="media mt-2">
+          <img style="width: 25px" class="ml-1 mr-3" src="/static/images/css.svg">
+          <div class="media-body">Cascading Style Sheets <b>(CSS)</b>
+          </div>
+        </div>
+        <div class="media mt-2">
+          <img style="width: 25px" class="ml-1 mr-3" src="/static/images/js.png">
+          <div class="media-body">Javascript <b>(JS)</b>
+          </div>
+        </div>
+        <div class="media mt-2">
+          <img style="width: 25px" class="ml-1 mr-3" src="/static/images/go.png">
+          <div class="media-body">Go Language <b>(Go)</b>
+          </div>
+        </div>
+        <br>
+        <h4 class="text-primary">LIBRARY YANG DIGUNAKAN</h4>
+        <div class="media mt-2">
+          <img style="width: 25px" class="ml-1 mr-3" src="/static/images/bootstrap.png">
+          <div class="media-body">Bootstrap
+          </div>
+        </div>
+        <div class="media mt-2">
+          <img style="width: 25px" class="ml-1 mr-3" src="/static/images/jquery.png">
+          <div class="media-body">jQuery
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{{ template "Footer" }}
+{{ end }}

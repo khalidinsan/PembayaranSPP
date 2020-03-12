@@ -1,0 +1,35 @@
+{{ define "Index" }}
+  {{ template "Header" . }}
+<div class="row">
+  <div class="col-md-6">
+    <h3><i class="ti-home text-primary"></i> Home</h3>
+    <hr>
+  </div>
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<div class="row">
+<div class="col-md-12">
+  <div class="jumbotron">
+  <h1 class="display-4">SELAMAT DATANG</h1>
+  <p class="lead">Di Aplikasi Sistem Pembayaran Perkuliahan Jurusan Teknik Informatika</p>
+  <hr class="my-4">
+  <p>Silahkan klik pada tombol dibawah untuk mengakses halaman pembayaran perkuliahan</p>
+  <p class="lead">
+    <a class="btn btn-primary" href="/pembayaran_sks" role="button"><i class="ti-book"></i> Pembayaran SKS</a>
+    <a class="btn btn-primary" href="/pembayaran_spp" role="button"><i class="ti-medall"></i> Pembayaran SPP</a>
+  </p>
+</div>
+</div>
+</div>
+
+  
+
+
+  {{ template "Footer" }}
+{{ end }}
